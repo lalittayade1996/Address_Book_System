@@ -14,7 +14,6 @@ public class ContactOfPerson {
 		setEmail(email);
 		setPhoneNumber(phoneNumber);
 		setZip(zip);
-
 	}
 
 	public String getFirstName() {
@@ -22,7 +21,7 @@ public class ContactOfPerson {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName; // using getter and setter
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
