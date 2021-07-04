@@ -3,7 +3,6 @@ package com.bridgelabz.addressbook;
 public class ContactOfPerson {
 	private String firstName, lastName, address, city, state, email, zip, phoneNumber;
 
-	// constructor of contactOfperson
 	public ContactOfPerson(String firstName, String lastName, String address, String city, String state, String email,
 			String phoneNumber, String zip) {
 		setFirstName(firstName);
@@ -17,16 +16,12 @@ public class ContactOfPerson {
 
 	}
 
-	public ContactOfPerson() {
-
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName; // using getter and setter
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
