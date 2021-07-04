@@ -31,14 +31,11 @@ public class AddressBookMain {
 		this.email = userInputs.nextLine();
 	}
 
-	// to read data from contacts
 	public String showContactsDetails() {
 		return ("------------------------\nFirst Name: " + fName + "\nLast Name: " + lName + "\nAddress: " + address
 				+ "\nCity: " + city + "\nState: " + state + "\nPin Code: " + zipCode + "\nPhone Number: " + phoneNum
 				+ "\nEmail ID: " + email + "\n-------------------------");
 	}
-
-	// get complete details of person
 
 	public String getFirstName() {
 		return fName;
@@ -47,11 +44,12 @@ public class AddressBookMain {
 	public static void main(String[] args) {
 
 		System.out.println("Welcome to Address Book");
-
+		System.out.println("Add multiple contacst");
 		List<AddressBookMain> persons = new ArrayList<>();
 
 		Scanner uc = new Scanner(System.in);
-		System.out.println("If you want to add address enter '0' ");
+		System.out.println(
+				"If you want to add address enter '0' or \nfor editing existing address enter '1' and \nfor deleting enter '2': ");
 		int userChoice = uc.nextInt();
 
 		if (userChoice == 0) {
@@ -88,23 +86,23 @@ public class AddressBookMain {
 					if (i.getFirstName().equals(editContact)) {
 
 						System.out.println("Change the First Name: ");
-						String editfName = input.next();
+						String editfName = input.nextLine();
 						i.fName = editfName;
 
 						System.out.println("Change the Last Name: ");
-						String editlName = input.next();
+						String editlName = input.nextLine();
 						i.lName = editlName;
 
 						System.out.println("Change the Address: ");
-						String editAddress = input.next();
+						String editAddress = input.nextLine();
 						i.address = editAddress;
 
 						System.out.println("Change the City: ");
-						String editCity = input.next();
+						String editCity = input.nextLine();
 						i.city = editCity;
 
 						System.out.println("Change the State: ");
-						String editState = input.next();
+						String editState = input.nextLine();
 						i.state = editState;
 
 						System.out.println("Change the Pin Code: ");
@@ -116,16 +114,31 @@ public class AddressBookMain {
 						i.phoneNum = editPhoneNum;
 
 						System.out.println("Change the Email ID: ");
-						String editEmail = input.next();
+						String editEmail = input.nextLine();
 						i.email = editEmail;
 					}
 					System.out.println(persons);
-
 				}
-			} else {
-				System.out.println("Invalid Option");
+
 			}
+
+			System.out.println("Deleting a contact");
+
+			System.out.println(persons);
+			System.out.println("Which contact you want to delete from address book: ");
+			Scanner input = new Scanner(System.in);
+			String deleteContact = input.next();
+
+			for (AddressBookMain i : persons) {
+
+				if (i.getFirstName().equals(deleteContact)) {
+					persons.remove(i);
+				}
+			}
+			System.out.println(persons);
+
+		} else {
+			System.out.println("Invalid Option");
 		}
 	}
-
 }
