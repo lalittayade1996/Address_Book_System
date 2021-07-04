@@ -1,15 +1,17 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
+	// collection liabrary implementation
 	public static Scanner sc = new Scanner(System.in);
-
-	public AddressBook addressBook = new AddressBook();
-
+	private AddressBook addressBook = new AddressBook();
 	public static Map<String, AddressBook> addressBookListMap = new HashMap<>();
 
 	public void addAddressBook(String addressBookName) {
@@ -17,7 +19,7 @@ public class AddressBookMain {
 		boolean flag = true;
 
 		while (flag) {
-
+			// menu bar option
 			System.out.println("1.Add Contact");
 			System.out.println("2.Edit Contact");
 			System.out.println("3.Delete");
@@ -37,9 +39,9 @@ public class AddressBookMain {
 
 				boolean listEdited = addressBook.editContactDetails(personName);
 				if (listEdited) {
-					System.out.println("List Edited Successfully");
+					System.out.println("Edited Successfully");
 				} else {
-					System.out.println("List Cannot be Edited");
+					System.out.println("Cannot be Edited");
 				}
 				break;
 
@@ -48,14 +50,11 @@ public class AddressBookMain {
 				String firstName = sc.next();
 				boolean listDeleted = addressBook.deleteContact(firstName);
 				if (listDeleted) {
-					System.out.println("Deleted Contact from the List");
+					System.out.println("Deleted Contact ");
 				} else {
-					System.out.println("List Cannot be Deleted");
+					System.out.println("Cannot be Deleted");
 				}
 				break;
-			default:
-
-				flag = true;
 
 			case 4:
 				flag = false;
@@ -137,11 +136,24 @@ public class AddressBookMain {
 		System.out.println("Total number of people in this city " + city + ": " + countPersonInCity);
 	}
 
+	private void sortContactByName() {
+		for (Map.Entry<String, AddressBook> entry : addressBookListMap.entrySet()) {
+			AddressBook value = entry.getValue();
+			List<ContactOfPerson> sortedList = value.contactList.stream()
+					.sorted(Comparator.comparing(ContactOfPerson::getFirstName)).collect(Collectors.toList());
+
+			for (ContactOfPerson contact : sortedList) {
+				System.out.println("First Name: " + contact.getFirstName());
+				System.out.println("Last Name: " + contact.getLastName());
+
+			}
+		}
+	}
+
 	public static void main(String[] args) {
-		System.out.println("----------------****Welcome to the Address Book System****--------------");
+		// Create abject of addressbookmain
 		AddressBookMain addressBookMain = new AddressBookMain();
 		boolean flag = true;
-
 		while (flag) {
 			System.out.println("1.Add New Address Book");
 			System.out.println("2.Search Contact from a city");
@@ -150,7 +162,8 @@ public class AddressBookMain {
 			System.out.println("5.View Contact by city ");
 			System.out.println("6.Count Contact By State");
 			System.out.println("7.Count Contact By City");
-			System.out.println("8.Exit");
+			System.out.println("8.Sort Contact By Name");
+			System.out.println("9.Exit");
 
 			System.out.println("Enter choice: ");
 			int option = sc.nextInt();
@@ -202,8 +215,11 @@ public class AddressBookMain {
 				String cityName2 = sc.next();
 				addressBookMain.CountByCity(cityName2);
 				break;
-
 			case 8:
+				System.out.println("Sort Contact");
+				addressBookMain.sortContactByName();
+
+			case 9:
 				flag = false;
 				break;
 			}
