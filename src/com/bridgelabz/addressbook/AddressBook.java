@@ -1,5 +1,8 @@
 package com.bridgelabz.addressbook;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,9 +10,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AddressBook {
-
 	public static Scanner sc = new Scanner(System.in);
-	public ArrayList<ContactOfPerson> contactList;
+	public static ArrayList<ContactOfPerson> contactList;
 	public HashMap<String, ArrayList<ContactOfPerson>> personByState;
 	public HashMap<String, ArrayList<ContactOfPerson>> personByCity;
 
@@ -52,6 +54,7 @@ public class AddressBook {
 				personByCity.put(city, new ArrayList<ContactOfPerson>());
 			}
 			personByCity.get(city).add(contactofPerson);
+
 		}
 		return contactList;
 	}
@@ -115,6 +118,7 @@ public class AddressBook {
 			System.out.println("First Name: " + contact.getFirstName());
 			System.out.println("Last Name: " + contact.getLastName());
 		}
+
 	}
 
 	public void getPersonNameByCity(String cityName) {
@@ -123,6 +127,27 @@ public class AddressBook {
 		for (ContactOfPerson contact : list) {
 			System.out.println("First Name: " + contact.getFirstName());
 			System.out.println("Last Name: " + contact.getLastName());
+		}
+	}
+
+	public static void writeData(AddressBookMain addressBookMain) {
+		StringBuffer personBuffer = new StringBuffer();
+		contactList.forEach(person -> {
+			String personDataString = person.toString().concat("\n");
+			personBuffer.append(personDataString);
+		});
+		try {
+			Files.lines(new File("Contacts.txt").toPath()).map(String::trim).forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void readData(AddressBookMain addressBookMain) {
+		try {
+			Files.lines(new File("Contacts.txt").toPath()).map(String::trim).forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
